@@ -20,7 +20,7 @@
 3. 申請帳號API
 4. ~~志願API~~ 
  - ~~長條圖星期顯示~~ ++imcount++
- - ~~存入志願~~ ++apply++
+ - ~~存入志願~~ ++apply_Toapply++
  - ~~長條圖下方即時申請次數~~ ++apply_accouunt++
 5. 隨機抽志願序
 6. ~結果顯示~++search_result++
