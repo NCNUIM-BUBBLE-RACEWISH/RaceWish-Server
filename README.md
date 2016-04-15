@@ -21,7 +21,7 @@
 4. ~~志願API~~ 
  - ~~長條圖星期顯示~~ ++imcount++
  - ~~存入志願~~ ++apply_Toapply++
- - ~~長條圖下方即時申請次數~~ ++apply_accouunt++
+ - ~~長條圖下方即時申請次數~~ ++apply_count++
 5. 隨機抽志願序
 6. ~結果顯示~++search_result++
 7. 點圖查訊API(由場地查詢，會有相關資訊)
