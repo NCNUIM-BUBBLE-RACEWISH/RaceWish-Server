@@ -18,43 +18,43 @@ import org.json.JSONObject;
 public class Search_place {
     @GET
     @Path("/json")
-    //²£¥Íªº¿é¥X®æ¦¡¡A¬°json;¨Ã¨Ï¥Î¡AUTF-8ªº½s½X
+    //ç”¢ç”Ÿçš„è¼¸å‡ºæ ¼å¼ï¼Œç‚ºjson;ä¸¦ä½¿ç”¨ï¼ŒUTF-8çš„ç·¨ç¢¼
     @Produces("application/json; charset=UTF-8")
     public String stepf(@MatrixParam("target")  @DefaultValue("All")  String target) throws Exception{
         /*try & error*/
         try {
-            /*¸ê®Æ®w³s±µ*/
+            /*è³‡æ–™åº«é€£æ¥*/
             String conUrl = "jdbc:sqlserver://163.22.17.184:1433;"
                     + "databaseName=ball;"
-                    + "user=Aisha;"
-                    + "password=bang123!@#;";
-            Connection con = null;//ÄÀ©ñª«¥ó
-            //¸ü¤JÅX°Êµ{¦¡
+                    + "user=*****;"
+                    + "password=*****;";
+            Connection con = null;//é‡‹æ”¾ç‰©ä»¶
+            //è¼‰å…¥é©…å‹•ç¨‹å¼
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            con = DriverManager.getConnection(conUrl);//con ¬° DB
-            /*´M§ä¸ê·½*/
-            //statement µo°e¸ê®Æ®w©R¥O¡A¨Ã¥B²£¥Ístatement object
+            con = DriverManager.getConnection(conUrl);//con ç‚º DB
+            /*å°‹æ‰¾è³‡æº*/
+            //statement ç™¼é€è³‡æ–™åº«å‘½ä»¤ï¼Œä¸¦ä¸”ç”¢ç”Ÿstatement object
             Statement stat = con.createStatement();
             ResultSet rs;
             if(target.equals("All")){
-                rs = stat.executeQuery("select useplace.timecode ®É¶¡¥N½X,substring(useplace.placeid,2,1) ³õ¦a¥N½X, department.cname ¨Ï¥ÎªÌ "+
+                rs = stat.executeQuery("select useplace.timecode æ™‚é–“ä»£ç¢¼,substring(useplace.placeid,2,1) å ´åœ°ä»£ç¢¼, department.cname ä½¿ç”¨è€… "+
                 "from department,useplace where department.deptid = substring(useplace.theuser,1,2)");
             }else{
-           	 rs = stat.executeQuery("select useplace.timecode ®É¶¡¥N½X , substring(useplace.placeid,2,1) ³õ¦a¥N½X, department.cname ¨Ï¥ÎªÌ from department,useplace where department.deptid = substring(useplace.theuser,1,2) and substring(department.cname,1,2) =  "+target);
+           	 rs = stat.executeQuery("select useplace.timecode æ™‚é–“ä»£ç¢¼ , substring(useplace.placeid,2,1) å ´åœ°ä»£ç¢¼, department.cname ä½¿ç”¨è€… from department,useplace where department.deptid = substring(useplace.theuser,1,2) and substring(department.cname,1,2) =  "+target);
          }
             JSONArray result = new JSONArray();
             while(rs.next()) {
                 JSONObject tmp = new JSONObject();
-                tmp.put("®É¶¡¥N½X",rs.getString(1));
-                tmp.put("³õ¦a¥N½X",rs.getString(2));
-                tmp.put("¨Ï¥ÎªÌ",rs.getString(3));
+                tmp.put("æ™‚é–“ä»£ç¢¼",rs.getString(1));
+                tmp.put("å ´åœ°ä»£ç¢¼",rs.getString(2));
+                tmp.put("ä½¿ç”¨è€…",rs.getString(3));
                 result.put(tmp);
             }
-            /*Ãö³¬¸ê·½*/
+            /*é—œé–‰è³‡æº*/
             rs.close();
             stat.close();
             return result.toString();
-        /*§ì¿ù*/
+        /*æŠ“éŒ¯*/
         } catch(JSONException err) {
             return err.getMessage();
         } catch(Exception err) {
