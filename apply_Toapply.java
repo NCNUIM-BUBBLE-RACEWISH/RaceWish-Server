@@ -17,28 +17,28 @@ import org.json.JSONObject;
 public class apply {
 	@POST
     @Path("/json")
-    //²£¥Íªº¿é¥X®æ¦¡¡A¬°json;¨Ã¨Ï¥Î¡AUTF-8ªº½s½X
+    //ç”¢ç”Ÿçš„è¼¸å‡ºæ ¼å¼ï¼Œç‚ºjson;ä¸¦ä½¿ç”¨ï¼ŒUTF-8çš„ç·¨ç¢¼
     @Consumes("application/json; charset=UTF-8")
     public String writein(String message) {
 		try {
-	        /*¸ê®Æ®w³s±µ©Ò¨Ï¥Îªº¦r¦ê*/
+	        /*è³‡æ–™åº«é€£æ¥æ‰€ä½¿ç”¨çš„å­—ä¸²*/
 	        String conUrl = "jdbc:sqlserver://163.22.17.184:1433;"
 	                + "databaseName=ball;"
-	                + "user=Aisha;"
-	                + "password=bang123!@#;";
-	         /*¸ü¤JÅX°Êµ{¦¡*/
+	                + "user=****;"
+	                + "password=*******;";
+	         /*è¼‰å…¥é©…å‹•ç¨‹å¼*/
 	        Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-	        /*²£¥Í³s½u*/
+	        /*ç”¢ç”Ÿé€£ç·š*/
 	        Connection con =DriverManager.getConnection(conUrl);
-	        /*´M§ä¸ê·½: Statement¤U¹F«ü¥O ResultSet «O¦sµ²ªG*/
+	        /*å°‹æ‰¾è³‡æº: Statementä¸‹é”æŒ‡ä»¤ ResultSet ä¿å­˜çµæœ*/
 	        Statement stat;
 	        ResultSet rs;
-	        /*«Ø¥ßStatementª«¥ó*/
+	        /*å»ºç«‹Statementç‰©ä»¶*/
 	        stat = con.createStatement();
-	        /*°õ¦æ¤º®e*/
-	        //¸ÑªR json ¦r¦ê¡Amessage ¬°json¦r¦ê
+	        /*åŸ·è¡Œå…§å®¹*/
+	        //è§£æ json å­—ä¸²ï¼Œmessage ç‚ºjsonå­—ä¸²
 	        JSONObject sendin = new JSONObject(message);
-	        /*§ì¹ïÀ³ªº­È*/
+	        /*æŠ“å°æ‡‰çš„å€¼*/
 	        String code = sendin.getString("code");
 	        String ballid = sendin.getString("ballid");
 	        String wish = sendin.getString("wish");
@@ -46,30 +46,30 @@ public class apply {
 	        String placeid = sendin.getString("placeid");
 	        String timecode = sendin.getString("timecode");
 	        String term = sendin.getString("term");
-	        /*¶ë¤J¸ê®Æ®w¤¤*/
+	        /*å¡å…¥è³‡æ–™åº«ä¸­*/
 	        stat.executeUpdate
 	        ("insert into apply (code,ballid,wish,placeid,week,timecode,term)"
 	        		+" values('"+code+"','"+ballid+"','"+wish+"','"+placeid+"','"+week
 	        		+"','"+timecode+"','"+term+"'); ");
-	        /*¦^¶Ç©Ò¿ïªº®É¶¡*/
+	        /*å›å‚³æ‰€é¸çš„æ™‚é–“*/
 	        rs = stat.executeQuery("select * from apply where ballid = '"+ballid+"' ");
 	        JSONArray result = new JSONArray();
 	        while(rs.next()) {
 	            JSONObject tmp = new JSONObject();
-	            tmp.put("¥N½X",rs.getString(1));
-	            tmp.put("±b¸¹",rs.getString(2));
-	            tmp.put("§ÓÄ@",rs.getString(3));
-	            tmp.put("³õ¦a",rs.getString(4));
-	            tmp.put("¬P´Á",rs.getString(5));
-	            tmp.put("®É¶¡¥N½X",rs.getString(6));
-	            tmp.put("¾Ç´Á",rs.getString(7));
+	            tmp.put("ä»£ç¢¼",rs.getString(1));
+	            tmp.put("å¸³è™Ÿ",rs.getString(2));
+	            tmp.put("å¿—é¡˜",rs.getString(3));
+	            tmp.put("å ´åœ°",rs.getString(4));
+	            tmp.put("æ˜ŸæœŸ",rs.getString(5));
+	            tmp.put("æ™‚é–“ä»£ç¢¼",rs.getString(6));
+	            tmp.put("å­¸æœŸ",rs.getString(7));
 	            result.put(tmp);
 	        }
-        /*Ãö³¬¸ê·½*/
+        /*é—œé–‰è³‡æº*/
         rs.close();
         stat.close();
         return result.toString();
-        /*§ì¿ù*/
+        /*æŠ“éŒ¯*/
 		} catch(JSONException err) {
             	return err.getMessage();
 		} catch(Exception err) {
