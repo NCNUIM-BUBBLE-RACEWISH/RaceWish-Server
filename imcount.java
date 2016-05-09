@@ -19,26 +19,26 @@ import org.json.JSONObject;
 public class imcount {
     @GET
     @Path("/json")
-    //²£¥Íªº¿é¥X®æ¦¡¡A¬°json;¨Ã¨Ï¥Î¡AUTF-8ªº½s½X
+    //ç”¢ç”Ÿçš„è¼¸å‡ºæ ¼å¼ï¼Œç‚ºjson;ä¸¦ä½¿ç”¨ï¼ŒUTF-8çš„ç·¨ç¢¼
     @Produces("application/json; charset=UTF-8")
-    /*¸ô®|http://localhost:2339/bubble/wish/imcount/json;week=¤T*/
-    public String much(@MatrixParam("week") @DefaultValue("¤@") String week){
+    /*è·¯å¾‘http://localhost:2339/bubble/wish/imcount/json;week=ä¸‰*/
+    public String much(@MatrixParam("week") @DefaultValue("ä¸€") String week){
         try {
-            /*¸ê®Æ®w³s±µ©Ò¨Ï¥Îªº¦r¦ê*/
+            /*è³‡æ–™åº«é€£æ¥æ‰€ä½¿ç”¨çš„å­—ä¸²*/
             String conUrl = "jdbc:sqlserver://163.22.17.184:1433;"
                     + "databaseName=ball;"
-                    + "user=Aisha;"
-                    + "password=bang123!@#;";
-             /*¸ü¤JÅX°Êµ{¦¡*/
+                    + "user=*****;"
+                    + "password=*****;";
+             /*è¼‰å…¥é©…å‹•ç¨‹å¼*/
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            /*²£¥Í³s½u*/
+            /*ç”¢ç”Ÿé€£ç·š*/
             Connection con =DriverManager.getConnection(conUrl);
-            /*´M§ä¸ê·½: Statement¤U¹F«ü¥O ResultSet «O¦sµ²ªG*/
+            /*å°‹æ‰¾è³‡æº: Statementä¸‹é”æŒ‡ä»¤ ResultSet ä¿å­˜çµæœ*/
             Statement stat;
             ResultSet rs;
-            /*«Ø¥ßStatementª«¥ó*/
+            /*å»ºç«‹Statementç‰©ä»¶*/
             stat = con.createStatement();
-            /*°õ¦æ¤º®e*/
+            /*åŸ·è¡Œå…§å®¹*/
             rs = stat.executeQuery
                     ("select week,placeid,timecode,count(*)"
                             + " from apply "
@@ -47,13 +47,13 @@ public class imcount {
             JSONArray result = new JSONArray();
             while(rs.next()) {
                 JSONObject tmp = new JSONObject();
-                tmp.put("¬P´Á",rs.getString(1));
-                tmp.put("³õ¦a¥N½X",rs.getString(2));
-                tmp.put("®É¬q",rs.getString(3));
-                tmp.put("¥Ó½Ğ¶¤¥î¼Æ",rs.getString(4));
+                tmp.put("æ˜ŸæœŸ",rs.getString(1));
+                tmp.put("å ´åœ°ä»£ç¢¼",rs.getString(2));
+                tmp.put("æ™‚æ®µ",rs.getString(3));
+                tmp.put("ç”³è«‹éšŠä¼æ•¸",rs.getString(4));
                 result.put(tmp);
             }
-            /*Ãö³¬¸ê·½*/
+            /*é—œé–‰è³‡æº*/
             rs.close();
             stat.close();
             return result.toString();
