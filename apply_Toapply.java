@@ -27,8 +27,8 @@ public class Insert_apply {
             /*資料庫連接所使用的字串*/
             String conUrl = "jdbc:sqlserver://163.22.17.184:1433;"
                     + "databaseName=ball;"
-                    + "user=Aisha;"
-                    + "password=bang123!@#;";
+                    + "user=*****;"
+                    + "password=******;";
              /*載入驅動程式*/
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             /*產生連線*/
