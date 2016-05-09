@@ -3,29 +3,32 @@ package bubble;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
+import javax.ws.rs.core.Response;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-
-@Path("/apply")
-public class Test {
+@Path("/user/apply")
+public class Insert_apply {
     @POST
-    @Path("/json")
+    @Path("/insert")
     //產生的輸出格式，為json;並使用，UTF-8的編碼
     @Consumes("application/json; charset=UTF-8")
-    public String writein(String message) {
+    public Response writein(String message) throws JSONException {
+        JSONObject output = new JSONObject();
+        NewResponse re =  new NewResponse();
         try {
             /*資料庫連接所使用的字串*/
             String conUrl = "jdbc:sqlserver://163.22.17.184:1433;"
                     + "databaseName=ball;"
-                    + "user=*****;"
-                    + "password=******;";
+                    + "user=Aisha;"
+                    + "password=bang123!@#;";
              /*載入驅動程式*/
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             /*產生連線*/
@@ -70,12 +73,24 @@ public class Test {
         /*關閉資源*/
         rs.close();
         stat.close();
-        return result.toString();
+        re.setResponse(result.toString());
+        return re.builder.build();
         /*抓錯*/
-        } catch(JSONException err) {
-                return err.getMessage();
-        } catch(Exception err) {
-                return err.getMessage();
+        } catch (SQLException e) {
+            output.put("statuscode", "500");
+            output.put("message","伺服器錯誤");
+            re.setResponse(output.toString());
+            return re.builder.build();
+        } catch (JSONException e) {
+            output.put("statuscode", "400");
+            output.put("message","錯誤要求");
+            re.setResponse(output.toString());
+            return re.builder.build();
+        }catch(Exception err){
+            output.put("statuscode", "500");
+            output.put("message","伺服器錯誤");
+            re.setResponse(output.toString());
+            return re.builder.build();
         }
     }
 }
