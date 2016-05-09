@@ -18,37 +18,37 @@ import org.json.JSONObject;
 public class apply_count {
     @GET
     @Path("/json")
-    //²£¥Íªº¿é¥X®æ¦¡¡A¬°json;¨Ã¨Ï¥Î¡AUTF-8ªº½s½X
+    //ç”¢ç”Ÿçš„è¼¸å‡ºæ ¼å¼ï¼Œç‚ºjson;ä¸¦ä½¿ç”¨ï¼ŒUTF-8çš„ç·¨ç¢¼
     @Produces("application/json; charset=UTF-8")
     public String count
     (@MatrixParam("place") String place ,@MatrixParam("week") String week ,@MatrixParam("time") String time) throws JSONException {
         try {
-            /*¸ê®Æ®w³s±µ©Ò¨Ï¥Îªº¦r¦ê*/
+            /*è³‡æ–™åº«é€£æ¥æ‰€ä½¿ç”¨çš„å­—ä¸²*/
             String conUrl = "jdbc:sqlserver://163.22.17.184:1433;"
                     + "databaseName=ball;"
-                    + "user=Aisha;"
-                    + "password=bang123!@#;";
-             /*¸ü¤JÅX°Êµ{¦¡*/
+                    + "user=*****;"
+                    + "password=******;";
+             /*è¼‰å…¥é©…å‹•ç¨‹å¼*/
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            /*²£¥Í³s½u*/
+            /*ç”¢ç”Ÿé€£ç·š*/
             Connection con =DriverManager.getConnection(conUrl);
-            /*´M§ä¸ê·½: Statement¤U¹F«ü¥O ResultSet «O¦sµ²ªG*/
+            /*å°‹æ‰¾è³‡æº: Statementä¸‹é”æŒ‡ä»¤ ResultSet ä¿å­˜çµæœ*/
             Statement stat;
             ResultSet rs;
-            /*«Ø¥ßStatementª«¥ó*/
+            /*å»ºç«‹Statementç‰©ä»¶*/
             stat = con.createStatement();
-            /*°õ¦æ¤º®e*/
+            /*åŸ·è¡Œå…§å®¹*/
             rs = stat.executeQuery
-                    ("select count(*) as ¥Ó½Ğ¦¸¼Æ "
+                    ("select count(*) as ç”³è«‹æ¬¡æ•¸ "
                             + "from apply where placeid = '"
                             + 	place+"' and week = '"+week+"' and timecode = '"+time+"'");
             JSONArray result = new JSONArray();
             while(rs.next()) {
                 JSONObject tmp = new JSONObject();
-                tmp.put("¥Ó½Ğ¦¸¼Æ",rs.getString(1));
+                tmp.put("ç”³è«‹æ¬¡æ•¸",rs.getString(1));
                 result.put(tmp);
             }
-            /*Ãö³¬¸ê·½*/
+            /*é—œé–‰è³‡æº*/
             rs.close();
             stat.close();
             return result.toString();
