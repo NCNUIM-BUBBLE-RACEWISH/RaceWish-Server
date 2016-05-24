@@ -8,18 +8,18 @@ public class SqlDB {
    Statement stat;
    public SqlDB() throws Exception {
 	  try{
-		  /*¸ê®Æ®w³s±µ©Ò¨Ï¥Îªº¦r¦ê*/
-		    String conUrl = "jdbc:sqlserver://163.22.17.184:1433;"
+		  /*è³‡æ–™åº«é€£æ¥æ‰€ä½¿ç”¨çš„å­—ä¸²*/
+		    String conUrl = "jdbc:sqlserver://***********;"
 		            + "databaseName=ball;"
-		            + "user=Aisha;"
-		            + "password=bang123!@#;";
-		     /*¸ü¤JÅX°Êµ{¦¡*/
+		            + "user=******;"
+		            + "password******;";
+		     /*è¼‰å…¥é©…å‹•ç¨‹å¼*/
 		    Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-		    /*²£¥Í³s½u*/
+		    /*ç”¢ç”Ÿé€£ç·š*/
 		    Connection con =DriverManager.getConnection(conUrl);
-		    /*´M§ä¸ê·½: Statement¤U¹F«ü¥O ResultSet «O¦sµ²ªG*/
+		    /*å°‹æ‰¾è³‡æº: Statementä¸‹é”æŒ‡ä»¤ ResultSet ä¿å­˜çµæœ*/
 		    
-		    /*«Ø¥ßStatementª«¥ó*/
+		    /*å»ºç«‹Statementç‰©ä»¶*/
 		    stat = con.createStatement();
 	  }catch(Exception e){
 		  System.err.println( e.getClass().getName() + ": " + e.getMessage() );
